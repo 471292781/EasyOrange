@@ -7,28 +7,20 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
-
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
 
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(callSuper = false)
-@TableName("eo_order")
-public class OrderDO extends BaseDO {
-
+@TableName("eo_order_item")
+public class OrderItemDO extends BaseDO {
     private Long id;
-    private String orderNo;
-    private Long buyerId;
-    private Long sellerId;
-    private BigDecimal totalAmount;
-    private Integer status;
-    private Integer paymentStatus;
-    private String address;
-    private String phone;
-    private String remark;
-    private String cancelReason;
-    private LocalDateTime cancelTime;
+    private Long orderId;
+    private Long productId;
+    private String productSnapshot;
+    private BigDecimal unitPrice;
+    private Integer quantity;
+    private BigDecimal subtotal;
 }
