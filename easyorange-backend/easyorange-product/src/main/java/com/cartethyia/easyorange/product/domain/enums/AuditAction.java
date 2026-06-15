@@ -1,27 +1,28 @@
 package com.cartethyia.easyorange.product.domain.enums;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonValue;
 import jakarta.annotation.Nullable;
 import java.util.Arrays;
 
-public enum ConditionLevel {
+/**
+ * 商品审核动作枚举。
+ * <p>
+ * 替代审核流程中的魔法数（1=通过, 2=拒绝, 3=重提交）。
+ */
+public enum AuditAction {
 
-    NEW(1, "全新"),
-    LIKE_NEW(2, "几乎全新"),
-    GOOD(3, "轻微使用痕迹"),
-    FAIR(4, "明显使用痕迹");
+    APPROVED(1, "通过"),
+    REJECTED(2, "拒绝"),
+    RESUBMIT(3, "重提交");
 
-    private final Integer code;
+    private final int code;
     private final String desc;
 
-    ConditionLevel(Integer code, String desc) {
+    AuditAction(int code, String desc) {
         this.code = code;
         this.desc = desc;
     }
 
-    @JsonValue
-    public Integer getCode() {
+    public int getCode() {
         return code;
     }
 
@@ -36,19 +37,18 @@ public enum ConditionLevel {
      * @return the matching enum value, or {@code null} if code is null or not recognized
      */
     @Nullable
-    @JsonCreator
-    public static ConditionLevel fromCode(Integer code) {
+    public static AuditAction fromCode(Integer code) {
         if (code == null) {
             return null;
         }
         return Arrays.stream(values())
-                .filter(level -> level.code.equals(code))
+                .filter(v -> v.code == code)
                 .findFirst()
                 .orElse(null);
     }
 
     public static String getDescByCode(Integer code) {
-        ConditionLevel level = fromCode(code);
-        return level != null ? level.getDesc() : "未知";
+        AuditAction action = fromCode(code);
+        return action != null ? action.getDesc() : "未知";
     }
 }
