@@ -106,11 +106,11 @@ public class AiModelSupport {
     }
 
     /**
-     * 提取模型文本输出；模型可能不返回 output（返回空串），避免 NPE。
+     * 提取模型文本输出；模型可能不返回结果（返回空串），避免 NPE。
      */
     private static String outputText(ChatResponse response) {
-        var output = response.getResult().getOutput();
-        return output != null ? output.getText() : "";
+        var result = response.getResult();
+        return result != null ? result.getOutput().getText() : "";
     }
 
     /**
